@@ -6,14 +6,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.WebDriver;
 
 
 
 public class Week5login {
 	private WebDriver webDriver;
+	private Login Login;
 	
 	@After
 	public void aftertest() {
@@ -23,22 +23,28 @@ public class Week5login {
 	@Before
 	public void b4test() {
 		webDriver = new ChromeDriver();
+		Login = PageFactory.initElements(webDriver, Login.class);
+		
 	}
 	
 
 	@Test
 	public void test_login() {
+		
+		
 		webDriver.navigate().to("http://thedemosite.co.uk/addauser.php");
-		webDriver.findElement(By.name("username")).sendKeys("test");
-		webDriver.findElement(By.name("password")).sendKeys("test");
-		webDriver.findElement(By.name("FormsButton2")).click();
+		Login.enter_username("test");
+		Login.enter_password("test");
+		Login.submit();
 		
+	
 		webDriver.navigate().to("http://thedemosite.co.uk/login.php");
-		webDriver.findElement(By.name("username")).sendKeys("test");
-		webDriver.findElement(By.name("password")).sendKeys("test", Keys.RETURN);
-		webDriver.findElement(By.name("FormsButton2")).click();
+		Login.enter_username("test");
+		Login.enter_password("test");
+		Login.submit();
 		
-		assertEquals("**Successful Login**", webDriver.findElement(By.cssSelector("big  b")).getText());
+		
+		assertEquals("**Successful Login**", Login.check_log_in());
 	}
 
 }
