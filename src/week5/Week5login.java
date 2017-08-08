@@ -24,15 +24,23 @@ public class Week5login {
 	public void b4test() {
 		webDriver = new ChromeDriver();
 	}
+	
 
 	@Test
-	public void test() {
+	public void test_login() {
+		webDriver.navigate().to("http://thedemosite.co.uk/addauser.php");
+		webDriver.findElement(By.name("username")).sendKeys("test");
+		webDriver.findElement(By.name("password")).sendKeys("test");
+		webDriver.findElement(By.name("FormsButton2")).click();
+		
 		webDriver.navigate().to("http://thedemosite.co.uk/login.php");
 		webDriver.findElement(By.name("username")).sendKeys("test");
 		webDriver.findElement(By.name("password")).sendKeys("test", Keys.RETURN);
 		webDriver.findElement(By.name("FormsButton2")).click();
 		
-		assertEquals("**Successful Login**", webDriver.findElement(By.cssSelector("body > table > tbody > tr > td.auto-style1 > big > blockquote > blockquote > font > center > b")).getText());
+		assertEquals("**Successful Login**", webDriver.findElement(By.cssSelector("big  b")).getText());
 	}
 
 }
+
+
